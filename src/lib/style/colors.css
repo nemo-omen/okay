@@ -1,0 +1,170 @@
+:root {
+  --dark-1: #2e2a33;
+  --dark-2: #27232b;
+  --dark-3: #201c23;
+  --dark-4: #19151b;
+  --dark-5: #120e13;
+  --dark-6: #13111b;
+  --dark-7: #0f0d17;
+  --dark-8: #0c0a13;
+  --dark-9: #09070f;
+  --dark-10: #06050b;
+  --dark-11: #030207;
+  --dark-12: #000000;
+  --dark: #13111b;
+
+  --light-1: #ffffff;
+  --light-2: #fefefe;
+  --light-3: #fdfdfd;
+  --light-4: #fcfcfc;
+  --light-5: #fbfbfb;
+  --light-6: #f5f5f5;
+  --light-7: #eaeaea;
+  --light-8: #dfdfdf;
+  --light-9: #d4d4d4;
+  --light-10: #c9c9c9;
+  --light-11: #bebebe;
+  --light-12: #b3b3b3;
+  --light: #f5f5f5;
+
+  --primary-1: #ffe8e8;
+  --primary-2: #ffd3d3;
+  --primary-3: #ffb7b0;
+  --primary-4: #ff9b8d;
+  --primary-5: #ff7f6a;
+  --primary-6: #ff6347;
+  --primary-7: #e6553f;
+  --primary-8: #cc4937;
+  --primary-9: #b33d2f;
+  --primary-10: #993127;
+  --primary-11: #80251f;
+  --primary: var(--primary-6);
+
+  --secondary-1: #fdffe7;
+  --secondary-2: #faffcf;
+  --secondary-3: #f5ffb1;
+  --secondary-4: #f0ff93;
+  --secondary-5: #ebff75;
+  --secondary-6: #e6ff57;
+  --secondary-7: #d0e64d;
+  --secondary-8: #bacc43;
+  --secondary-9: #a4b239;
+  --secondary-10: #8e982f;
+  --secondary-11: #788e25;
+  --secondary: var(--secondary-6);
+
+  --tertiary-1: #d3dbff;
+  --tertiary-2: #b7c6ff;
+  --tertiary-3: #9bb1ff;
+  --tertiary-4: #7f9cff;
+  --tertiary-5: #6387ff;
+  --tertiary-6: #4772ff;
+  --tertiary-7: #3f66e6;
+  --tertiary-8: #375acc;
+  --tertiary-9: #2f4eb3;
+  --tertiary-10: #274299;
+  --tertiary-11: #1f3680;
+  --tertiary: var(--tertiary-6);
+
+  --link-color-dark: var(--tertiary-4);
+  --link-color-light: var(--tertiary-6);
+  --link-color: var(--link-color-light);
+  --link-color-hover: var(--link-color-dark);
+  --link-color-active: var(--link-color-dark);
+
+  --border-color-dark: var(--dark-3);
+  --border-color-light: var(--light-3);
+  --border-color: var(--border-color-light);
+  --border-color-hover-dark: var(--dark-2);
+  --border-color-hover-light: var(--light-5);
+  --border-color-hover: var(--border-color-hover-light);
+  --border-color-active-dark: var(--dark-1);
+  --border-color-active-light: var(--light-5);
+  --border-color-active: var(--border-color-active-light);
+
+  --surface-color--2-dark: var(--dark-9);
+  --surface-color--1-dark: var(--dark-8);
+  --surface-color-0-dark: var(--dark-7);
+  --surface-color-1-dark: var(--dark-6);
+  --surface-color-2-dark: var(--dark-5);
+  --surface-color-3-dark: var(--dark-4);
+  --surface-color--2-light: var(--light-10);
+  --surface-color--1-light: var(--light-8);
+  --surface-color-0-light: var(--light-7);
+  --surface-color-1-light: var(--light-6);
+  --surface-color-2-light: var(--light-5);
+  --surface-color-3-light: var(--light-4);
+
+  --surface-color--2: var(--surface-color--2-light);
+  --surface-color--1: var(--surface-color--1-light);
+  --surface-color-0: var(--surface-color-0-light);
+  --surface-color-1: var(--surface-color-1-light);
+  --surface-color-2: var(--surface-color-2-light);
+  --surface-color-3: var(--surface-color-3-light);
+
+  --text-color-0-dark: var(--light-3);
+  --text-color-1-dark: var(--light-4);
+  --text-color-2-dark: var(--light-5);
+  --text-color-3-dark: var(--light-6);
+  --text-color-0-light: var(--dark-6);
+  --text-color-1-light: var(--dark-5);
+  --text-color-2-light: var(--dark-4);
+  --text-color-3-light: var(--dark-3);
+  --text-color: var(--text-color-0-light);
+
+  --shadow-1: 2px 2px 2px rgb(0 0 0 / 0.2);
+  --shadow-2: 4px 4px 8px rgb(0 0 0 / 0.15);
+  --shadow-3: 4px 8px 16px rgb(0 0 0 / 0.1);
+
+  --body-bg-color: var(--surface-color-0);
+
+  --card-bg-color: var(--surface-color-0);
+  --card-border-color: var(--border-color);
+  --card-border-color-hover: var(--border-color-hover);
+  --card-border-color-active: var(--border-color-active);
+  --card-shadow: var(--shadow-1);
+  --card-radius: 1rem;
+  --card-bg-color-hover: var(--surface-color-1);
+  --card-shadow-hover: var(--shadow-2);
+
+  --input-background-color: var(--surface-color--1);
+  --input-border-color: var(--border-color);
+  --input-border-color-hover: var(--border-color-hover);
+  --input-border-color-active: var(--border-color-active);
+  --input-background-color-hover: var(--surface-color--2);
+  --input-background-color-active: var(--surface-color--2);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --link-color: var(--link-color-dark);
+    --link-color-hover: var(--link-color-light);
+    --link-color-active: var(--link-color-light);
+    --border-color: var(--border-color-dark);
+    --border-color-active: var(--border-color-active-dark);
+    --border-color-hover: var(--border-color-hover-dark);
+    --surface-color--2: var(--surface-color--2-dark);
+    --surface-color--1: var(--surface-color--1-dark);
+    --surface-color-0: var(--surface-color-0-dark);
+    --surface-color-1: var(--surface-color-1-dark);
+    --surface-color-2: var(--surface-color-2-dark);
+    --surface-color-3: var(--surface-color-3-dark);
+    --text-color: var(--text-color-0-dark);
+  }
+}
+
+.surface-0 {
+  background-color: var(--surface-color-0);
+}
+
+.surface-1 {
+  background-color: var(--surface-color-1);
+}
+
+.surface-2 {
+  background-color: var(--surface-color-2);
+}
+
+.surface-3 {
+  background-color: var(--surface-color-3);
+}
