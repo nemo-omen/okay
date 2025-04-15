@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Sidebar from '$lib/components/Sidebar.svelte';
 	import type { Snippet } from 'svelte';
 	type Props = {
 		children: Snippet;
@@ -6,7 +7,7 @@
 	const { children }: Props = $props();
 </script>
 
-<aside class="sidebar">sidebar</aside>
+<Sidebar />
 
 <main>
 	{@render children()}
@@ -19,13 +20,6 @@
 			'header header'
 			'sidebar main'
 			'footer footer' !important;
-	}
-
-	.sidebar {
-		background-color: var(--surface-color-0);
-		border-inline-end: 1px solid var(--border-color);
-		z-index: 10;
-		grid-area: sidebar;
 	}
 
 	main {
