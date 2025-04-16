@@ -3,9 +3,6 @@
 
 	const user = $derived(page.data.user);
 	const session = $derived(page.data.session);
-	function showDropdown() {
-		//
-	}
 </script>
 
 <header>
@@ -25,7 +22,7 @@
 					>
 						{user.username}
 					</button>
-					<ul class="dropdown-menu" id="user-dropdown" bind:this={dropdownMenu}>
+					<ul class="dropdown-menu" id="user-dropdown">
 						<li><a href="/profile">Profile</a></li>
 						<li><a href="/settings">Settings</a></li>
 						<li>

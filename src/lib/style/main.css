@@ -209,6 +209,7 @@ input[type='submit'] {
   font-family: var(--font-family);
   font-size: 1rem;
   cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease, outline-color 0.3s ease;
 }
 
 button:hover,
@@ -221,6 +222,7 @@ input[type='submit']:hover {
 button:focus,
 input[type='button']:focus,
 input[type='submit']:focus {
+  background-color: var(--button-bg-color-hover);
   outline: 2px solid var(--border-color-active);
   outline-offset: -1px;
 }
@@ -228,6 +230,7 @@ input[type='submit']:focus {
 button:focus-visible,
 input[type='button']:focus-visible,
 input[type='submit']:focus-visible {
+  background-color: var(--button-bg-color-hover);
   outline: 2px solid var(--border-color-active);
   outline-offset: -1px;
 }
@@ -243,4 +246,12 @@ input[type='submit']:focus-visible {
   body {
     color: var(--light);
   }
+}
+
+.page-title-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block-end: 1rem;
+  border-bottom: 1px solid var(--border-color);
 }

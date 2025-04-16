@@ -1,10 +1,17 @@
 <script lang="ts">
 	import Sidebar from '$lib/components/Sidebar.svelte';
-	import type { Snippet } from 'svelte';
+	import type { Project, Session, User } from '$lib/server/db/schema';
+	import { setContext, type Snippet } from 'svelte';
 	type Props = {
 		children: Snippet;
+		data: {
+			user: User;
+			session: Session;
+			projects: Project[];
+		};
 	};
-	const { children }: Props = $props();
+	const { children, data }: Props = $props();
+	setContext('projects', data.projects);
 </script>
 
 <Sidebar />

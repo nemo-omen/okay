@@ -7,24 +7,34 @@ import type { RequestEvent } from '@sveltejs/kit';
 export function projectOperations(event: RequestEvent) {
   return {
     getUserProjects: async (userId: string) => {
-      const projects = await db.select()
-        .from(schema.projects)
-        .leftJoin(schema.lists, eq(schema.lists.projectId, schema.projects.id))
-        .leftJoin(schema.tasks, eq(schema.tasks.listId, schema.lists.id))
-        .where(eq(schema.projects.userId, userId));
+      const projects = await db.query.projects.findMany({
+        with: {
+          lists: {
+            with: {
+              tasks: true
+            }
+          }
+        },
+        where: eq(schema.projects.userId, userId),
+        orderBy: (projects, { desc }) => [desc(projects.createdAt)],
+      });
       return projects;
     },
     getProjectById: async (projectId: string) => {
-      const project = await db.select()
-        .from(schema.projects)
-        .leftJoin(schema.lists, eq(schema.lists.projectId, schema.projects.id))
-        .leftJoin(schema.tasks, eq(schema.tasks.listId, schema.lists.id))
-        .where(eq(schema.projects.id, projectId))
-        .limit(1);
-      if (project.length === 0) {
+      const project = await db.query.projects.findFirst({
+        where: eq(schema.projects.id, projectId),
+        with: {
+          lists: {
+            with: {
+              tasks: true
+            }
+          }
+        },
+      });
+      if (!project) {
         throw new Error('Project not found');
       }
-      return project[0];
+      return project;
     },
     create: async (projectData: Partial<schema.Project>) => {
       if (!projectData.title || !projectData.userId || !event.locals.user?.id) {
