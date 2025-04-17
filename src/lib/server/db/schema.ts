@@ -1,5 +1,5 @@
 import { relations, sql } from 'drizzle-orm';
-import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { boolean, interval, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 
 export const user = pgTable('user', {
 	id: uuid('id').default(sql`gen_random_uuid()`).primaryKey(),
@@ -33,6 +33,11 @@ export const tasks = pgTable('task', {
 		.references(() => lists.id, { onDelete: 'cascade' }),
 	title: text('title').notNull(),
 	description: text('description').notNull(),
+	repeats: boolean('repeats').notNull().default(false),
+	repeatsEvery: interval('repeats_every'),
+	priority: text('priority').notNull().default('medium'), // 'low', 'medium', 'high'
+	status: text('status').notNull().default('pending'), // 'pending', 'in progress', 'completed', 'cancelled'
+	dependsOn: uuid('depends_on'),
 	userId: uuid('user_id')
 		.notNull()
 		.references(() => user.id, { onDelete: 'cascade' }),
@@ -47,6 +52,7 @@ export const tasks = pgTable('task', {
 });
 
 export const taskRelations = relations(tasks, ({ one }) => ({
+	// Tasks that depend on this task
 	user: one(user, {
 		fields: [tasks.userId],
 		references: [user.id]
@@ -54,12 +60,25 @@ export const taskRelations = relations(tasks, ({ one }) => ({
 	list: one(lists, {
 		fields: [tasks.listId],
 		references: [lists.id]
-	})
+	}),
+	dependsOnTask: one(tasks, {
+		fields: [tasks.dependsOn],
+		references: [tasks.id],
+	}),
 }));
 
 export const lists = pgTable('list', {
 	id: uuid('id').default(sql`gen_random_uuid()`).primaryKey(),
 	title: text('title').notNull(),
+	description: text('description'),
+	icon: text('icon'),
+	color: text('color'),
+	priority: text('priority').notNull().default('medium'), // 'low', 'medium', 'high'
+	status: text('status').notNull().default('pending'), // 'pending', 'in progress', 'completed', 'cancelled'
+	// 'active' for current lists, 'archived' for completed lists, 'deleted' for removed lists
+	dependsOn: uuid('depends_on'),
+	// Optional: to link lists together, e.g. for subtasks or related lists
+	// This can be used to create a hierarchy or relationship between lists
 	userId: uuid('user_id')
 		.notNull()
 		.references(() => user.id, { onDelete: 'cascade' }),
@@ -84,12 +103,19 @@ export const listRelations = relations(lists, ({ one, many }) => ({
 	user: one(user, {
 		fields: [lists.userId],
 		references: [user.id]
+	}),
+	dependsOn: one(lists, {
+		fields: [lists.dependsOn],
+		references: [lists.id]
 	})
 }));
 
 export const projects = pgTable('project', {
 	id: uuid('id').default(sql`gen_random_uuid()`).primaryKey(),
 	title: text('title').notNull(),
+	description: text('description'),
+	icon: text('icon'),
+	color: text('color'),
 	userId: uuid('user_id')
 		.notNull()
 		.references(() => user.id, { onDelete: 'cascade' }),

@@ -11,7 +11,11 @@
 	const { data } = $props();
 </script>
 
-<h1>Home</h1>
+<div class="container">
+	<div class="page-title-bar">
+		<h1>Home</h1>
+	</div>
+</div>
 
 <style>
 </style>

@@ -36,10 +36,18 @@ body {
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
+  grid-template-columns: auto 1fr;
   grid-template-areas:
-    "header"
-    "main"
-    "footer";
+    "header header"
+    "main main"
+    "footer footer";
+}
+
+body:has(.sidebar) {
+  grid-template-areas:
+    "header header"
+    "sidebar main"
+    "footer footer";
 }
 
 :focus,
@@ -71,6 +79,7 @@ a:hover {
 main {
   padding: 1rem;
   grid-area: main;
+  /* grid-column: span 2; */
 }
 
 header {
@@ -88,6 +97,11 @@ footer {
   grid-area: sidebar;
   width: 250px;
   padding: 1rem;
+}
+
+.container {
+  width: min(100%, 70rem);
+  margin: 0 auto;
 }
 
 .form-card {
@@ -254,4 +268,15 @@ input[type='submit']:focus-visible {
   justify-content: space-between;
   padding-block-end: 1rem;
   border-bottom: 1px solid var(--border-color);
+}
+
+.icon-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  svg {
+    color: currentColor;
+    width: 1.25em;
+  }
 }
