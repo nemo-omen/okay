@@ -18,7 +18,7 @@
 					<a href="/projects" class="sidebar-link"> Projects </a>
 					<button
 						onclick={toggleProjectModal}
-						class="sidebar-button"
+						class="icon-reveal-button"
 						aria-label="Create New Project"
 					>
 						<Plus />
@@ -64,7 +64,7 @@
 
 		&:hover {
 			background-color: var(--surface-color-1-hover);
-			.sidebar-button {
+			.icon-reveal-button {
 				color: var(--text-color);
 			}
 		}
@@ -78,39 +78,6 @@
 				background-color: transparent;
 			}
 		}
-	}
-
-	.sidebar-button {
-		background-color: transparent;
-		border: none;
-		font-family: inherit;
-		padding: 0.25rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: transparent;
-		font-size: 1rem;
-		cursor: pointer;
-		transition:
-			color 0.3s ease,
-			background-color 0.3s ease;
-		aspect-ratio: 1 / 1;
-
-		&:hover,
-		&:focus-visible {
-			color: var(--text-color);
-			background-color: var(--surface-color-3-hover);
-		}
-
-		&:focus,
-		&:focus-visible {
-			outline-color: transparent;
-		}
-	}
-
-	:global(.sidebar-button svg) {
-		width: 1em;
-		color: currentColor;
 	}
 
 	.sidebar-item {

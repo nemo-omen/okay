@@ -51,8 +51,7 @@ export const tasks = pgTable('task', {
 	completedAt: timestamp('completed_at', { withTimezone: true, mode: 'date' })
 });
 
-export const taskRelations = relations(tasks, ({ one }) => ({
-	// Tasks that depend on this task
+export const taskRelations = relations(tasks, ({ one, many }) => ({
 	user: one(user, {
 		fields: [tasks.userId],
 		references: [user.id]
@@ -61,7 +60,7 @@ export const taskRelations = relations(tasks, ({ one }) => ({
 		fields: [tasks.listId],
 		references: [lists.id]
 	}),
-	dependsOnTask: one(tasks, {
+	dependsOn: one(tasks, {
 		fields: [tasks.dependsOn],
 		references: [tasks.id],
 	}),

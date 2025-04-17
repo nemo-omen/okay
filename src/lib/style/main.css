@@ -1,4 +1,5 @@
 @import './colors.css';
+@import './flex.css';
 
 :root {
   --font-family: var(--sans);
@@ -268,6 +269,7 @@ input[type='submit']:focus-visible {
   justify-content: space-between;
   padding-block-end: 1rem;
   border-bottom: 1px solid var(--border-color);
+  margin-bottom: 1rem;
 }
 
 .icon-button {
@@ -278,5 +280,44 @@ input[type='submit']:focus-visible {
   svg {
     color: currentColor;
     width: 1.25em;
+  }
+}
+
+.icon-reveal-button {
+  background-color: transparent;
+  border: none;
+  font-family: inherit;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    color 0.3s ease,
+    background-color 0.3s ease;
+  aspect-ratio: 1 / 1;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--text-color);
+    background-color: var(--surface-color-3-hover);
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline-color: transparent;
+  }
+}
+
+.icon-reveal-button svg {
+  width: 1em;
+  color: currentColor;
+}
+
+:has(.icon-reveal-button):hover {
+  .icon-reveal-button {
+    color: var(--text-color);
   }
 }
