@@ -54,6 +54,17 @@
 		"drizzle-orm": "^0.40.0",
 		"drizzle-seed": "^0.3.1",
 		"postgres": "^3.4.5",
+		"prosemirror-commands": "^1.7.1",
+		"prosemirror-example-setup": "^1.2.3",
+		"prosemirror-markdown": "^1.13.2",
+		"prosemirror-model": "^1.25.0",
+		"prosemirror-schema-basic": "^1.2.4",
+		"prosemirror-schema-list": "^1.5.1",
+		"prosemirror-state": "^1.4.3",
+		"prosemirror-transform": "^1.10.3",
+		"prosemirror-view": "^1.39.1",
+		"quill": "2.0.3",
+		"quill-markdown-shortcuts": "^0.0.10",
 		"zod": "^3.24.2"
 	},
 	"pnpm": {
