@@ -65,7 +65,7 @@
 		&:hover {
 			background-color: var(--surface-color-1-hover);
 			.icon-reveal-button {
-				color: var(--text-color);
+				opacity: 1;
 			}
 		}
 

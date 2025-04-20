@@ -3,6 +3,7 @@
 	import QuillEditor from '$lib/components/QuillEditor.svelte';
 	import type { Project } from '$lib/server/db/schema';
 	import { Pencil, Plus } from '@lucide/svelte';
+	import ProseMirrorEditor from '$lib/components/ProseMirrorEditor.svelte';
 
 	type Props = {
 		data: {
@@ -15,7 +16,14 @@
 	let isEdit = $state(false);
 	const toggleEdit = () => {
 		isEdit = !isEdit;
+		if (!isEdit) saveDescription();
 	};
+
+	async function saveDescription() {
+		// Simulate saving the description
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+		alert('Description saved!');
+	}
 </script>
 
 <div class="container">
@@ -41,7 +49,7 @@
 				<p>{@html project.description}</p>
 			{:else}
 				<div class="flex flex-column gap-2">
-					<QuillEditor bind:value={project.description} />
+					<QuillEditor bind:value={project.description} blur={() => toggleEdit()} />
 					<div class="flex justify-end">
 						<button onclick={toggleEdit}>Save</button>
 					</div>
@@ -66,11 +74,18 @@
 <style>
 	.project-description {
 		position: relative;
+		min-height: 100px;
 
 		.icon-reveal-button {
 			position: absolute;
 			top: 0;
 			right: 0;
+		}
+
+		&:hover {
+			.icon-reveal-button {
+				opacity: 1;
+			}
 		}
 	}
 </style>

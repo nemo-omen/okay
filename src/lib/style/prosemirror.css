@@ -1,0 +1,10 @@
+/* Add space around the hr to make clicking it easier */
+
+.ProseMirror-menubar {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border-radius: var(--radius-2);
+  background-color: var(--background-color);
+  box-shadow: var(--shadow-1);
+  min-height: 2rem !important;
+}

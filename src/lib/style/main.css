@@ -284,20 +284,18 @@ input[type='submit']:focus-visible {
 }
 
 .icon-reveal-button {
-  background-color: transparent;
   border: none;
   font-family: inherit;
   padding: 0.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: transparent;
   font-size: 1rem;
   cursor: pointer;
-  transition:
-    color 0.3s ease,
-    background-color 0.3s ease;
+  opacity: 0;
+  transition: opacity 0.3s ease, color 0.3s ease, background-color 0.3s ease;
   aspect-ratio: 1 / 1;
+  background-color: transparent;
 
   &:hover,
   &:focus-visible {
@@ -316,8 +314,21 @@ input[type='submit']:focus-visible {
   color: currentColor;
 }
 
-:has(.icon-reveal-button):hover {
-  .icon-reveal-button {
-    color: var(--text-color);
+.text-button {
+  background-color: transparent;
+  border-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--surface-color-3-hover);
+  }
+
+  &:focus-visible {
+    outline-color: transparent;
+    background-color: var(--surface-color-3-hover);
   }
 }
