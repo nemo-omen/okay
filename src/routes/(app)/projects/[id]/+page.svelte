@@ -22,13 +22,21 @@
 	function saveProject() {
 		projectForm.submit();
 	}
+
+	function toggleTitleEdit() {
+		isTitleEdit = !isTitleEdit;
+	}
+
+	function inputFocusAction(node: HTMLInputElement) {
+		node.focus();
+	}
 </script>
 
 <div class="container">
 	<form
 		method="post"
 		id="project-form"
-		action="/projects?/update"
+		action="/projects/{project.id}?/update"
 		bind:this={projectForm}
 		use:enhance
 	>
@@ -41,21 +49,15 @@
 		<div class="page-title-bar">
 			<div class="flex gap-2 project-title-group">
 				{#if !isTitleEdit}
-					<h1>{project.title}</h1>
-					<button
-						class="icon-reveal-button"
-						onclick={() => {
-							isTitleEdit = !isTitleEdit;
-						}}
-						aria-label="Edit project"
-						title="Edit project"
-					>
-						<Pencil />
+					<button type="button" class="title-button" onclick={toggleTitleEdit}>
+						<h1>{project.title}</h1>
 					</button>
 				{:else}
 					<input
+						name="title"
 						type="text"
 						bind:value={project.title}
+						use:inputFocusAction
 						form="project-form"
 						onblur={() => {
 							isTitleEdit = false;
@@ -67,6 +69,16 @@
 						}}
 					/>
 				{/if}
+				<div class="button-group">
+					<button
+						class="icon-reveal-button"
+						onclick={toggleTitleEdit}
+						aria-label="Edit project"
+						title="Edit project"
+					>
+						<Pencil />
+					</button>
+				</div>
 			</div>
 			<button class="icon-button" onclick={() => alert('Button clicked!')}>
 				<Plus />
@@ -107,29 +119,41 @@
 	.project-description {
 		position: relative;
 		min-height: 100px;
-
-		.icon-reveal-button {
-			position: absolute;
-			top: 0;
-			right: 0;
-		}
-
-		&:hover {
-			.icon-reveal-button {
-				opacity: 1;
-			}
-		}
 	}
 
 	.project-title-group {
 		display: flex;
 		align-items: center;
+		justify-content: stretch;
 		gap: 0.5rem;
+		flex-grow: 1;
 
+		.title-button,
+		input {
+			flex-grow: 1;
+			text-align: left;
+			background-color: transparent;
+			border: 1px solid transparent;
+			padding: 0;
+		}
 		h1 {
 			margin: 0;
 			font-size: 2rem;
 			font-weight: bold;
+			padding: 0.5rem;
+		}
+
+		&:hover button,
+		&:hover input {
+			border-color: var(--border-color);
+		}
+
+		.button-group {
+			flex-grow: 1;
+		}
+
+		&:hover {
+			border-color: var(--border-color);
 		}
 
 		&:hover .icon-reveal-button {

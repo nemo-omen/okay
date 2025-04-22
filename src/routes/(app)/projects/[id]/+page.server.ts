@@ -21,27 +21,35 @@ export const load: PageServerLoad = async (event: PageServerLoadEvent) => {
   }
 };
 
-// export const actions = {
-//   default: async (event: RequestEvent) => {
-//     const { locals, request } = event;
-//     const formData = await request.formData();
-//     const projectEntries = Object.fromEntries(formData.entries());
-//     const projectData = projectUpdateSchema.safeParse(projectEntries);
+export const actions = {
+  update: async (event: RequestEvent) => {
+    const { locals, request } = event;
+    const formData = await request.formData();
+    const projectEntries = Object.fromEntries(formData.entries());
+    const createdAt = new Date(projectEntries.createdAt as string);
+    const updatedAt = new Date(projectEntries.updatedAt as string);
+    projectEntries.createdAt = createdAt;
+    projectEntries.updatedAt = updatedAt;
+    const validated = projectUpdateSchema.safeParse(projectEntries);
 
-//     if (!projectData.success) {
-//       return { status: 400, body: { errors: projectData.error.flatten() } };
-//     }
+    if (!validated.success) {
+      console.error('Validation failed:', validated.error.flatten());
+      return { status: 400, body: { errors: validated.error.flatten() } };
+    }
 
-//     const projectOps = projectOperations(event);
-//     const id = projectEntries.id as string;
+    const projectOps = projectOperations(event);
+    const id = projectEntries.id as string | undefined;
+    if (!id) {
+      return { status: 400, body: { error: 'Invalid or missing project ID' } };
+    }
 
-//     try {
-//       const updateResult = await projectOps.update(id, projectData.data);
-//       console.log('Project updated successfully:', updateResult);
-//       return { type: 'success', message: 'Project updated successfully', project: updateResult };
-//     } catch (error) {
-//       console.error('Error updating project:', error);
-//       return { status: 500, body: { error: 'Failed to update project' } };
-//     }
-//   }
-// };
+    try {
+      const updateResult = await projectOps.update(id, validated.data as Project);
+      console.log('Project updated successfully:', updateResult);
+      return { type: 'success', message: 'Project updated successfully', project: updateResult };
+    } catch (error) {
+      console.error('Error updating project:', error);
+      return { status: 500, body: { error: 'Failed to update project' } };
+    }
+  }
+};

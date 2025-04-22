@@ -60,7 +60,6 @@
 
 	const initTipTap: Action<HTMLDivElement, any> = (node) => {
 		if (browser) {
-			console.log({ value });
 			editor = new Editor({
 				element: node,
 				extensions: [StarterKit],
@@ -89,13 +88,10 @@
 
 	function focusAction(node: HTMLDivElement) {
 		node.addEventListener('focusin', () => {
-			console.log('FOCUS');
 			hasFocus = true;
 		});
 
 		node.addEventListener('focusout', (event) => {
-			console.log(document.activeElement);
-			console.log('BLUR');
 			hasFocus = false;
 		});
 		return {
@@ -115,47 +111,61 @@
 	<!-- {#if hasFocus} -->
 	<div class="editor-toolbar">
 		<div class="flex button-group">
-			<button onclick={() => editor.chain().focus().toggleBold().run()} tabindex="0">
+			<button onclick={() => editor.chain().focus().toggleBold().run()} tabindex="-1">
 				<Bold size="16px" />
 			</button>
-			<button onclick={() => editor.chain().focus().toggleItalic().run()} tabindex="0">
+			<button onclick={() => editor.chain().focus().toggleItalic().run()} tabindex="-1">
 				<Italic size="16px" />
 			</button>
-			<button onclick={() => editor.chain().focus().toggleUnderline().run()} tabindex="0">
+			<button onclick={() => editor.chain().focus().toggleUnderline().run()} tabindex="-1">
 				<Underline size="16px" />
 			</button>
-			<button onclick={() => editor.chain().focus().toggleStrike().run()} tabindex="0">
+			<button onclick={() => editor.chain().focus().toggleStrike().run()} tabindex="-1">
 				<Strikethrough size="16px" />
 			</button>
-			<button onclick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()} tabindex="0">
+			<button
+				onclick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+				tabindex="-1"
+			>
 				<Heading1 size="16px" />
 			</button>
-			<button onclick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()} tabindex="0">
+			<button
+				onclick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+				tabindex="-1"
+			>
 				<Heading2 size="16px" />
 			</button>
-			<button onclick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()} tabindex="0">
+			<button
+				onclick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+				tabindex="-1"
+			>
 				<Heading3 size="16px" />
 			</button>
-			<button onclick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()} tabindex="0">
+			<button
+				onclick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
+				tabindex="-1"
+			>
 				<Heading4 size="16px" />
 			</button>
 		</div>
 		<div class="button-group">
-			<button onclick={() => editor.chain().focus().setTextAlign('left').run()}>
+			<button onclick={() => editor.chain().focus().setTextAlign('left').run()} tabindex="-1">
 				<AlignLeft size="16px" />
 			</button>
-			<button onclick={() => editor.chain().focus().setTextAlign('center').run()}>
+			<button onclick={() => editor.chain().focus().setTextAlign('center').run()} tabindex="-1">
 				<AlignCenter size="16px" />
 			</button>
-			<button onclick={() => editor.chain().focus().setTextAlign('right').run()}>
+			<button onclick={() => editor.chain().focus().setTextAlign('right').run()} tabindex="-1">
 				<AlignRight size="16px" />
 			</button>
-			<button onclick={() => editor.chain().focus().setTextAlign('justify').run()}>
+			<button onclick={() => editor.chain().focus().setTextAlign('justify').run()} tabindex="-1">
 				<AlignJustify size="16px" />
 			</button>
 		</div>
 		<div class="button-group">
-			<button></button>
+			<button tabindex="-1"></button>
+			<button tabindex="-1"></button>
+			<button tabindex="-1"></button>
 		</div>
 	</div>
 	<!-- {/if} -->
