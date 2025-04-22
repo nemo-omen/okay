@@ -17,6 +17,7 @@
 
 	let isEdit = $state(false);
 	let isTitleEdit = $state(false);
+	let description = $state(project.description);
 
 	function saveProject() {
 		projectForm.submit();
@@ -26,8 +27,8 @@
 <div class="container">
 	<form
 		method="post"
-		action={`?/projects/${project.id}/update`}
 		id="project-form"
+		action="/projects?/update"
 		bind:this={projectForm}
 		use:enhance
 	>
@@ -73,17 +74,16 @@
 			</button>
 		</div>
 		<section class="project-description">
-			<input
-				type="hidden"
-				name="description"
-				bind:value={project.description}
-				form="project-form"
-			/>
 			<div class="flex flex-column gap-2">
+				<input type="hidden" name="description" bind:value={description} form="project-form" />
 				<TipTapEditor
 					bind:value={project.description}
 					placeholder="Project description..."
 					blur={() => saveProject()}
+					input={(content) => {
+						console.log('description: ', description);
+						description = content;
+					}}
 				/>
 			</div>
 			<!-- {/if} -->

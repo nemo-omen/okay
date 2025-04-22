@@ -25,9 +25,10 @@
 		value: string | null;
 		placeholder?: string;
 		blur: () => void;
+		input: (content: string) => void;
 	};
 
-	let { value = $bindable(), placeholder = $bindable(), blur }: Props = $props();
+	let { value = $bindable(), placeholder = $bindable(), blur, input }: Props = $props();
 
 	let editor: Editor | null = $state(null);
 	let editorContainer: HTMLDivElement | null = $state(null);
@@ -59,6 +60,7 @@
 
 	const initTipTap: Action<HTMLDivElement, any> = (node) => {
 		if (browser) {
+			console.log({ value });
 			editor = new Editor({
 				element: node,
 				extensions: [StarterKit],
@@ -71,6 +73,7 @@
 				},
 				onUpdate({ editor }) {
 					value = editor.getHTML();
+					input(value);
 				}
 			});
 		}

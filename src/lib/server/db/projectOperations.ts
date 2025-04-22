@@ -59,11 +59,14 @@ export function projectOperations(event: RequestEvent) {
       const [oldProject] = await db.select()
         .from(schema.projects)
         .where(eq(schema.projects.id, projectId));
+      console.log({ oldProject });
 
       const [updatedProject] = await db.update(schema.projects)
         .set({ ...changes, updatedAt: new Date() })
         .where(eq(schema.projects.id, projectId))
         .returning();
+
+      console.log({ updatedProject });
 
       await logAction({
         db,
