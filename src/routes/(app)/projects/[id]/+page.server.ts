@@ -1,7 +1,8 @@
-import type { PageServerLoad, PageServerLoadEvent, RequestEvent } from './$types';
+import type { Actions, PageServerLoad, PageServerLoadEvent, RequestEvent } from './$types';
 import type { Project } from '$lib/server/db/schema';
 import { projectUpdateSchema } from '$lib/server/db/zodSchema';
 import { projectOperations, projectOperations } from '$lib/server/db/projectOperations';
+import { fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async (event: PageServerLoadEvent) => {
   const { params, locals } = event;
@@ -34,22 +35,22 @@ export const actions = {
 
     if (!validated.success) {
       console.error('Validation failed:', validated.error.flatten());
-      return { status: 400, body: { errors: validated.error.flatten() } };
+      return fail(400, { errors: validated.error.flatten() });
     }
 
     const projectOps = projectOperations(event);
     const id = projectEntries.id as string | undefined;
     if (!id) {
-      return { status: 400, body: { error: 'Invalid or missing project ID' } };
+      return fail(400, { error: 'Invalid or missing project ID' });
     }
 
     try {
       const updateResult = await projectOps.update(id, validated.data as Project);
       console.log('Project updated successfully:', updateResult);
-      return { type: 'success', message: 'Project updated successfully', project: updateResult };
+      return { success: true, message: 'Project updated successfully', project: updateResult };
     } catch (error) {
       console.error('Error updating project:', error);
-      return { status: 500, body: { error: 'Failed to update project' } };
+      return fail(500, { error: 'Failed to update project' });
     }
   }
-};
+} satisfies Actions;

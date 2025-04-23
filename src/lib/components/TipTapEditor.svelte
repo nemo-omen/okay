@@ -42,7 +42,6 @@
 	}
 
 	function handleBlur(ed: Editor, event: Event) {
-		console.log(document.activeElement);
 		if (editorContainer?.contains(document.activeElement)) {
 			hasFocus = true;
 			return;
@@ -172,11 +171,18 @@
 </div>
 
 <style>
-	:focus {
-		outline: 2px solid tomato;
+	.editor-container {
+		border-radius: 0.5rem;
+		border: 1px solid transparent;
+		transition: border-color 0.2s ease-in-out;
+		outline: 2px solid transparent;
+		outline-offset: -2px;
+		padding-block-end: 0.5rem;
 	}
+
 	.editor-container:focus-within {
-		border: 1px solid var(--border-color);
+		border-color: var(--border-color);
+		padding-block-end: 0.5rem;
 	}
 
 	.tiptap-editor {
@@ -184,12 +190,11 @@
 		max-height: 16rem;
 		overflow-y: auto;
 		padding-inline: 1rem;
-		padding-block-end: 1rem;
 
 		:global(.ProseMirror) {
 			margin-top: 0;
-			min-height: 4rem;
-			max-height: 16rem;
+			min-height: 3rem;
+			max-height: 15rem;
 
 			&:focus {
 				outline-color: transparent;
@@ -197,10 +202,9 @@
 		}
 	}
 
-	:global(.tiptap-editor:has(.ProseMirror:focus)) {
-		outline: 2px solid var(--focus-color);
-		outline-offset: -2px;
-	}
+	/* :global(.tiptap-editor:has(.ProseMirror:focus)) { */
+	/* outline-color: var(--border-color); */
+	/* } */
 
 	.editor-toolbar {
 		min-height: 2rem;
@@ -210,8 +214,8 @@
 		opacity: 0;
 		transform: translateY(-20px);
 		transition:
-			opacity 0.2s ease-in-out,
-			transform 0.2s ease-in-out;
+			opacity 0.2s 0.3s ease-in-out,
+			transform 0.2s 0.3s ease-in-out;
 		pointer-events: none;
 	}
 

@@ -67,6 +67,26 @@ h6 {
   line-height: 1;
 }
 
+h1 {
+  font-size: 1.75rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+h4 {
+  font-size: 1rem;
+}
+
+h5 {
+  font-size: 1rem;
+}
+
 a,
 a:visited {
   color: var(--link-color);
@@ -101,7 +121,7 @@ footer {
 }
 
 .container {
-  width: min(100%, 70rem);
+  width: min(100%, 60rem);
   margin: 0 auto;
 }
 
