@@ -32,6 +32,7 @@ export const actions = {
     projectEntries.createdAt = createdAt;
     projectEntries.updatedAt = updatedAt;
     const validated = projectUpdateSchema.safeParse(projectEntries);
+    console.log({ validated });
 
     if (!validated.success) {
       console.error('Validation failed:', validated.error.flatten());
@@ -39,14 +40,14 @@ export const actions = {
     }
 
     const projectOps = projectOperations(event);
-    const id = projectEntries.id as string | undefined;
+    const id = validated.data.id as string | undefined;
     if (!id) {
       return fail(400, { error: 'Invalid or missing project ID' });
     }
 
     try {
       const updateResult = await projectOps.update(id, validated.data as Project);
-      console.log('Project updated successfully:', updateResult);
+      // console.log('Project updated successfully:', updateResult);
       return { success: true, message: 'Project updated successfully', project: updateResult };
     } catch (error) {
       console.error('Error updating project:', error);

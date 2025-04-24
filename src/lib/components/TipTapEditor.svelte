@@ -17,7 +17,10 @@
 		AlignCenter,
 		AlignRight,
 		AlignJustify,
-		Underline
+		Underline,
+		List,
+		ListChecks,
+		ListOrdered
 	} from '@lucide/svelte';
 	import { fade, fly } from 'svelte/transition';
 
@@ -162,9 +165,15 @@
 			</button>
 		</div>
 		<div class="button-group">
-			<button tabindex="-1"></button>
-			<button tabindex="-1"></button>
-			<button tabindex="-1"></button>
+			<button tabindex="-1">
+				<List size="16px" />
+			</button>
+			<button tabindex="-1">
+				<ListOrdered size="16px" />
+			</button>
+			<button tabindex="-1">
+				<ListChecks size="16px" />
+			</button>
 		</div>
 	</div>
 	<!-- {/if} -->

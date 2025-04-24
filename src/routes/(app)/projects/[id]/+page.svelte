@@ -7,6 +7,9 @@
 	import type { PageProps } from '../$types';
 	import type { ActionResult } from '@sveltejs/kit';
 	import { invalidateAll } from '$app/navigation';
+	import IconGrid from '$lib/components/IconGrid.svelte';
+	import IconDropdown from '$lib/components/IconDropdown.svelte';
+	import { getIcon } from '$lib/util/icons';
 
 	type Props = {
 		data: {
@@ -23,6 +26,8 @@
 	let isEdit = $state(false);
 	let isTitleEdit = $state(false);
 	let description = $state(project.description);
+	let icon = $state(getIcon(project.icon && project.icon.length > 0 ? project.icon : 'Smile'));
+	let projectIcon = $state(project.icon && project.icon.length > 0 ? project.icon : 'Smile');
 
 	function saveProject() {
 		if (!submitButton) return;
@@ -36,6 +41,13 @@
 
 	function inputFocusAction(node: HTMLInputElement) {
 		node.focus();
+	}
+
+	function setIcon(iconName: string) {
+		console.log('setting icon: ', iconName);
+		projectIcon = iconName;
+		icon = getIcon(iconName);
+		submitButton.click();
 	}
 
 	async function handleSubmit(
@@ -66,6 +78,14 @@
 	}
 </script>
 
+{#snippet iconMenuButtonContents()}
+	<svelte:component this={icon} />
+{/snippet}
+
+{#snippet iconMenuMenuItems()}
+	<IconGrid {setIcon} />
+{/snippet}
+
 <div class="container">
 	<form
 		method="POST"
@@ -90,12 +110,15 @@
 		<input type="hidden" name="userId" bind:value={project.userId} />
 		<input type="hidden" name="createdAt" bind:value={project.createdAt} />
 		<input type="hidden" name="updatedAt" bind:value={project.updatedAt} />
+		<input type="hidden" name="icon" bind:value={projectIcon} />
 	</form>
 	{#if project}
 		<div class="page-title-bar">
-			<button class="icon-button">
-				<Smile size="24px" />
-			</button>
+			<IconDropdown
+				menuTitle={'Project Icon'}
+				buttonContent={iconMenuButtonContents}
+				menuItems={iconMenuMenuItems}
+			/>
 			<div class="flex gap-2 project-title-group">
 				{#if !isTitleEdit}
 					<button type="button" class="title-button" onclick={toggleTitleEdit}>
@@ -118,21 +141,7 @@
 						}}
 					/>
 				{/if}
-				<!-- <div class="button-group">
-					<button
-						class="icon-reveal-button"
-						onclick={toggleTitleEdit}
-						aria-label="Edit project"
-						title="Edit project"
-					>
-						<Pencil />
-					</button>
-				</div> -->
 			</div>
-			<!-- <button class="icon-button" onclick={() => alert('Button clicked!')}>
-				<Plus />
-				Add List
-			</button> -->
 		</div>
 		<section class="project-description">
 			<div class="flex flex-column gap-2">
@@ -149,18 +158,28 @@
 			<button type="submit" form="project-form" class="hidden-submit" bind:this={submitButton}
 				>Save</button
 			>
-			<!-- {/if} -->
 		</section>
-		{#each project.lists as list}
-			<div>
-				<h2>{list.title}</h2>
-				<ul>
-					{#each list.cards as card}
-						<li>{card.title}</li>
-					{/each}
-				</ul>
+		{#if project.lists.length > 0}
+			{#each project.lists as list}
+				<div>
+					<h2>{list.title}</h2>
+					<ul>
+						{#each list.cards as card}
+							<li>{card.title}</li>
+						{/each}
+					</ul>
+				</div>
+			{/each}
+		{:else}
+			<div class="container-center">
+				<Pencil size="32px" />
+				<p>This project doesn't have any lists.</p>
+				<button class="text-button" onclick={() => (isEdit = !isEdit)}>
+					<Plus size="24px" />
+					Add a List
+				</button>
 			</div>
-		{/each}
+		{/if}
 	{:else}
 		<p>Project not found.</p>
 	{/if}
@@ -235,5 +254,9 @@
 			stroke: currentColor;
 			opacity: 0.6;
 		}
+	}
+
+	.container-center {
+		margin-top: 5rem;
 	}
 </style>
