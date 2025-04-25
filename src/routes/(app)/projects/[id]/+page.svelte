@@ -22,6 +22,7 @@
 
 	let projectForm: HTMLFormElement;
 	let submitButton: HTMLButtonElement;
+	let iconInput: HTMLInputElement;
 
 	let isEdit = $state(false);
 	let isTitleEdit = $state(false);
@@ -45,8 +46,10 @@
 
 	function setIcon(iconName: string) {
 		console.log('setting icon: ', iconName);
+		iconInput.value = iconName;
 		projectIcon = iconName;
 		icon = getIcon(iconName);
+		project.icon = iconName;
 		submitButton.click();
 	}
 
@@ -110,7 +113,7 @@
 		<input type="hidden" name="userId" bind:value={project.userId} />
 		<input type="hidden" name="createdAt" bind:value={project.createdAt} />
 		<input type="hidden" name="updatedAt" bind:value={project.updatedAt} />
-		<input type="hidden" name="icon" bind:value={projectIcon} />
+		<input type="hidden" name="icon" bind:value={projectIcon} bind:this={iconInput} />
 	</form>
 	{#if project}
 		<div class="page-title-bar">
