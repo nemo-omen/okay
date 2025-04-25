@@ -28,6 +28,10 @@
 	}
 
 	setContext('toggleProjectModal', toggleProjectModal);
+
+	function onModalClose() {
+		console.log('Modal closed');
+	}
 </script>
 
 <Sidebar />
@@ -41,7 +45,7 @@
 	<button type="submit" form="project-form">Save</button>
 {/snippet}
 
-<Modal title="Create a New Project" {footer} bind:this={modal}>
+<Modal title="Create a New Project" {footer} bind:this={modal} close={onModalClose}>
 	<form
 		action="/projects/create"
 		id="project-form"

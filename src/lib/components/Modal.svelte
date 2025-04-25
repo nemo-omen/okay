@@ -6,6 +6,7 @@
 	type Props = {
 		children: Snippet;
 		footer?: Snippet;
+		close?: () => void;
 		title?: string;
 		id?: string;
 	};
@@ -28,6 +29,25 @@
 					}
 				}
 			}
+		}
+	}
+
+	function dialogAction(node: HTMLDialogElement) {
+		if (browser) {
+			// Close the dialog when the close button is clicked
+			function handleClose() {
+				if (dialog && dialog.open) {
+					close();
+				}
+			}
+
+			node.addEventListener('close', handleClose);
+
+			return {
+				destroy() {
+					node.removeEventListener('close', handleClose);
+				}
+			};
 		}
 	}
 
@@ -65,7 +85,7 @@
 	}
 </script>
 
-<dialog bind:this={dialog} {id} popover>
+<dialog bind:this={dialog} {id} popover use:dialogAction>
 	<div bind:this={modal} class="modal" use:modalAction>
 		<div class="modal-header">
 			{#if title}
