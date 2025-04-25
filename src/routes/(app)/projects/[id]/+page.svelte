@@ -31,7 +31,7 @@
 	let description = $state(project.description);
 	let icon = $state(getIcon(project.icon && project.icon.length > 0 ? project.icon : 'Smile'));
 	let projectIcon = $state(project.icon && project.icon.length > 0 ? project.icon : 'Smile');
-	let projects = getContext('projects');
+	let projects: Project[] = getContext('projects');
 	function saveProject() {
 		if (!submitButton) return;
 		submitButton.click();
@@ -51,10 +51,6 @@
 		projectIcon = iconName;
 		icon = getIcon(iconName);
 		project.icon = iconName;
-		const thisProject = projects.find((p) => p.id === project.id);
-		if (thisProject) {
-			thisProject.icon = iconName;
-		}
 		submitButton.click();
 	}
 
@@ -76,7 +72,12 @@
 		if (result.type === 'success') {
 			// Handle success
 			await invalidateAll();
-			console.log('Project updated successfully:', result.data);
+			// console.log('Project updated successfully:', result.data);
+			const updatedProject = result.data.project;
+			const index = projects.findIndex((p) => p.id === updatedProject.id);
+			if (index !== -1) {
+				projects[index] = updatedProject;
+			}
 		} else if (result.type === 'error') {
 			// Handle error
 			console.error('Error updating project:', result.error);
@@ -105,7 +106,12 @@
 				if (result.type === 'success') {
 					// Handle success
 					await invalidateAll();
-					console.log('Project updated successfully:', result.data);
+					// console.log('Project updated successfully:', result.data);
+					const updatedProject = result.data.project;
+					const index = projects.findIndex((p) => p.id === updatedProject.id);
+					if (index !== -1) {
+						projects[index] = updatedProject;
+					}
 				} else if (result.type === 'error') {
 					// Handle error
 					console.error('Error updating project:', result.error);

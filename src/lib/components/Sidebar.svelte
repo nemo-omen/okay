@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getContext, SvelteComponent } from 'svelte';
+	import { getContext } from 'svelte';
 	import { page } from '$app/state';
 	import { FolderPlus, Plus } from '@lucide/svelte';
 	import { getIcon } from '$lib/util/icons';
@@ -7,6 +7,7 @@
 	// const projects = $state(page.data.projects);
 	const toggleProjectModal: () => void = getContext('toggleProjectModal');
 	const projects = getContext('projects');
+	$inspect(projects);
 </script>
 
 {#snippet sidebarItemIcon(iconName: string)}
@@ -115,6 +116,7 @@
 		padding: 0.5rem 1rem;
 		display: block;
 		transition: color 0.3s ease;
+		text-wrap: nowrap;
 		&:hover {
 			background-color: var(--surface-color-1-hover);
 			border-radius: var(--radius-2);
