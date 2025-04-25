@@ -7,7 +7,6 @@
 	// const projects = $state(page.data.projects);
 	const toggleProjectModal: () => void = getContext('toggleProjectModal');
 	const projects = getContext('projects');
-	$inspect(projects);
 </script>
 
 {#snippet sidebarItemIcon(iconName: string)}
