@@ -1,15 +1,17 @@
 <script lang="ts">
 	import 'quill/dist/quill.snow.css';
+	import type { ActionResult } from '@sveltejs/kit';
+	import { getContext, setContext } from 'svelte';
+	import { applyAction, deserialize, enhance } from '$app/forms';
+	import { invalidateAll } from '$app/navigation';
+	import type { PageProps } from '../$types';
 	import type { Project } from '$lib/server/db/schema';
 	import { Pencil, Plus, Smile } from '@lucide/svelte';
 	import TipTapEditor from '$lib/components/TipTapEditor.svelte';
-	import { applyAction, deserialize, enhance } from '$app/forms';
-	import type { PageProps } from '../$types';
-	import type { ActionResult } from '@sveltejs/kit';
-	import { invalidateAll } from '$app/navigation';
 	import IconGrid from '$lib/components/IconGrid.svelte';
 	import IconDropdown from '$lib/components/IconDropdown.svelte';
 	import { getIcon } from '$lib/util/icons';
+	import { page } from '$app/state';
 
 	type Props = {
 		data: {
@@ -29,11 +31,10 @@
 	let description = $state(project.description);
 	let icon = $state(getIcon(project.icon && project.icon.length > 0 ? project.icon : 'Smile'));
 	let projectIcon = $state(project.icon && project.icon.length > 0 ? project.icon : 'Smile');
-
+	let projects = getContext('projects');
 	function saveProject() {
 		if (!submitButton) return;
 		submitButton.click();
-		// projectForm.submit();
 	}
 
 	function toggleTitleEdit() {
@@ -50,6 +51,10 @@
 		projectIcon = iconName;
 		icon = getIcon(iconName);
 		project.icon = iconName;
+		const thisProject = projects.find((p) => p.id === project.id);
+		if (thisProject) {
+			thisProject.icon = iconName;
+		}
 		submitButton.click();
 	}
 

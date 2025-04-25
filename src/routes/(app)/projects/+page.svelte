@@ -1,8 +1,11 @@
 <script lang="ts">
-	import { getContext, onMount } from 'svelte';
+	import { getContext, onMount, setContext } from 'svelte';
 	import { Plus } from '@lucide/svelte';
+	import type { Project } from '$lib/server/db/schema';
 
 	const toggleProjectModal: () => void = getContext('toggleProjectModal');
+	let projects: Project[] = getContext('projects');
+	setContext('projects', projects);
 </script>
 
 <div class="container">

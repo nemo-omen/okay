@@ -1,11 +1,19 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
+	import { getContext, SvelteComponent } from 'svelte';
 	import { page } from '$app/state';
 	import { FolderPlus, Plus } from '@lucide/svelte';
+	import { getIcon } from '$lib/util/icons';
 
-	const projects = $state(page.data.projects);
+	// const projects = $state(page.data.projects);
 	const toggleProjectModal: () => void = getContext('toggleProjectModal');
+	const projects = getContext('projects');
+	$inspect(projects);
 </script>
+
+{#snippet sidebarItemIcon(iconName: string)}
+	{@const Icon = getIcon(iconName)}
+	<Icon size={16} />
+{/snippet}
 
 <aside class="sidebar">
 	<nav aria-label="Sidebar Navigation">
@@ -27,7 +35,10 @@
 				<menu>
 					{#each projects as project}
 						<li class="sidebar-item sidebar-child">
-							<a href="/projects/{project.id}" class="sidebar-link">{project.title}</a>
+							<a href="/projects/{project.id}" class="sidebar-link">
+								{@render sidebarItemIcon(project.icon)}
+								{project.title}
+							</a>
 						</li>
 					{/each}
 				</menu>

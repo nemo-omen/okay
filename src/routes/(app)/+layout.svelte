@@ -14,7 +14,8 @@
 		};
 	};
 	const { children, data }: Props = $props();
-	setContext('projects', data.projects);
+	let projects = $state(data.projects);
+	setContext('projects', projects);
 
 	let modal: SvelteComponent | undefined = undefined;
 
