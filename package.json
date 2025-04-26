@@ -51,6 +51,7 @@
 		"@node-rs/argon2": "^2.0.2",
 		"@oslojs/crypto": "^1.0.1",
 		"@oslojs/encoding": "^1.1.0",
+		"@picocss/pico": "^2.1.1",
 		"@tiptap/core": "^2.11.7",
 		"@tiptap/extension-underline": "^2.11.7",
 		"@tiptap/pm": "^2.11.7",

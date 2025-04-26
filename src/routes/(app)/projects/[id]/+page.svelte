@@ -203,6 +203,17 @@
 	.project-description {
 		position: relative;
 		min-height: 100px;
+		border-bottom: 1px solid transparent;
+		border-top: 1px solid transparent;
+		transition: border-color 0.2s ease-in-out;
+	}
+
+	:global(.project-description:not(:has(.ProseMirror-focused))) {
+		border-color: var(--border-color);
+	}
+
+	:global(.page-title-bar) {
+		border-bottom: none;
 	}
 
 	.project-title-group {
@@ -256,18 +267,6 @@
 	.page-title-bar {
 		display: flex;
 		gap: 1rem;
-	}
-
-	.page-title-bar > .icon-button {
-		aspect-ratio: 1 / 1;
-		font-size: 2rem;
-		width: 1.5em;
-		border-color: transparent;
-
-		:global(svg) {
-			stroke: currentColor;
-			opacity: 0.6;
-		}
 	}
 
 	.container-center {
